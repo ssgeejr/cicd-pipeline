@@ -1,0 +1,5 @@
+#!/bin/bash
+#docker run --name ebooks --rm -p 10001:8080 -d ebooks
+#docker run --name ebooks --rm -p 10001:8080 -v /opt/cicd/ebooks/ebooks:/usr/local/tomcat/webapps/ebooks -d tomcat:7-jre8
+
+docker run --name ebooks --rm -p 10001:8080 -v /opt/cicd/ebooks/ebooks:/usr/local/tomcat/webapps/ebooks -v /opt/cicd/vbox/virtualbox:/usr/local/tomcat/webapps/virtualbox -d tomcat:7-jre8

@@ -1,0 +1,1 @@
+docker run --name artifactory-oss --restart=always -v /opt/cicd/artifactory:/var/opt/jfrog/artifactory -p 8081:8081 -d artifactory-oss
