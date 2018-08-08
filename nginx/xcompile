@@ -1,0 +1,11 @@
+#!/bin/bash
+
+docker rmi -f nginxskux
+docker stop ngnxx
+docker rm ngnxx
+echo "docker build -t nginxskux ."
+docker build -t nginxskux .
+
+echo "docker run --name ngnxx --rm -p 81:80 -ti nginxskux"
+docker run --name ngnxx --rm -p 81:80 -ti nginxskux
+

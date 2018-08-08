@@ -27,3 +27,8 @@ If the file is currently empty, paste the following:
   "metrics-addr" : "127.0.0.1:9323",
   "experimental" : true
 }
+
+
+https://stefanprodan.com/2016/a-monitoring-solution-for-docker-hosts-containers-and-containerized-services/
+
+https://www.neteye-blog.com/2018/04/how-to-monitor-docker-containers-using-cadvisor-part-1/
