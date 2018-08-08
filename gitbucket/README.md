@@ -23,3 +23,5 @@ You can specify following options:
 --gitbucket.home=[DATA_DIR]
 --temp_dir=[TEMP_DIR]
 --max_file_size=[MAX_FILE_SIZE]
+
+docker run -ti --name git --rm -p 8880:8080 -v /opt/cicd/gitbucket/data:/gitbucket sprintbucket
