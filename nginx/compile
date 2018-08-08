@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker rmi -f nginxsku
+docker stop ngnx
+docker rm ngnx
+echo "docker build -t nginxsku ."
+echo "docker run --name ngnx --rm -p 80:80 -ti nginxsku"
+
