@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker stop sprintqube
+docker rm sprintqube
+
+docker run -d --name sprintqube  -p 9000:9000 -p 9092:9092 -v /opt/cicd/sonarqube/data:/opt/sonarqube/data -v /opt/cicd/sonarqube/extensions:/opt/sonarqube/extensions sprintqube
+
