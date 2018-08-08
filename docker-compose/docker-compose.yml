@@ -1,5 +1,22 @@
 version: '3'
 services:
+    jenkins:
+        image: jenkins/jenkins:lts
+        container_name: jenkins
+        ports:
+            - "8080:8080"
+            - "50000:50000"
+        environment:
+            - "JENKINS_OPTS=--prefix=/jenkins"
+        volumes:
+            - "/opt/cicd/jenkins/home:/var/jenkins_home"
+            - /var/run/docker.sock:/var/run/docker.sock
+	    - "/usr/bin/docker:/usr/bin/docker"
+            - /usr/local/bin/docker:/usr/bin/docker
+            - "opt/cicd/jdk1.8.0_171:/opt/jdk1.8.0_171"
+	    - "/opt/cicd/maven-3.5.3:/opt/maven-3.5.3"
+	    - "/usr/bin/git:/usr/bin/git"
+         restart: always
     web:
         image: nginx:alpine
         volumes:
