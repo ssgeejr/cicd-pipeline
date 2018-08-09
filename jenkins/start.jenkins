@@ -1,0 +1,1 @@
+docker run --name jenkins -p 8080:8080 -p 50000:50000 -v /opt/cicd/jenkins/home:/var/jenkins_home -v /opt/cicd/jdk1.8.0_171:/opt/jdk1.8.0_171 -v /opt/cicd/maven-3.5.3:/opt/maven-3.5.3 -v /usr/bin/git:/usr/bin/git -v /usr/bin/docker:/usr/bin/docker -d jenkins/jenkins:lts --prefix=/jenkins
