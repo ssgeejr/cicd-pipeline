@@ -53,17 +53,14 @@ services:
         stdin_open: true
         restart: always
     jenkins:
-        image: jenkins/jenkins:lts
+        image: jenkins:sprint
         container_name: jenkins
         ports:
             - "8080:8080"
             - "50000:50000"
         volumes:
+            - /var/run/docker.sock:/var/run/docker.sock 
             - /opt/cicd/jenkins/home:/var/jenkins_home
-            - /opt/cicd/jdk1.8.0_171:/opt/jdk1.8.0_171
-            - /opt/cicd/maven-3.5.3:/opt/maven-3.5.3
-            - /usr/bin/git:/usr/bin/git
-            - /usr/bin/docker:/usr/bin/docker
         environment:
             - "JENKINS_OPTS=--prefix=/jenkins"
         tty: true
