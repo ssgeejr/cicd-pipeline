@@ -1,4 +1,11 @@
 #version: '3'
+
+#entrypoint:
+# - bash
+#labels:
+# - "HDInsight client VM"
+
+
 version: '2'
 services:
     nginx:
@@ -31,7 +38,7 @@ services:
         volumes:
             - /opt/cicd/docker-nginx-revproxy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
         command:
-            - '-config.file=/etc/prometheus/prometheus.yml'	
+            - '-config.file=/etc/prometheus/prometheus.yml'
         tty: true
         stdin_open: true
         restart: always
@@ -105,4 +112,5 @@ services:
         tty: true
         stdin_open: true
         restart: always
+
 

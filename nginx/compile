@@ -7,5 +7,5 @@ echo "docker build -t nginxsku ."
 docker build -t nginxsku .
 
 echo "docker run --name ngnx --rm -p 80:80 -ti nginxsku"
-docker run --name ngnx --rm -p 80:80 -ti nginxsku
+#docker run --name ngnx --rm -p 80:80 -ti nginxsku
 
