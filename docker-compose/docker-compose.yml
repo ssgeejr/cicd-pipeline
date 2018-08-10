@@ -61,6 +61,7 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock 
             - /opt/cicd/jenkins/home:/var/jenkins_home
+            - /opt/cicd/repo:/repo
         environment:
             - "JENKINS_OPTS=--prefix=/jenkins"
         tty: true
@@ -95,17 +96,6 @@ services:
             - "8081:8081"
         volumes:
             - /opt/cicd/nexus/data:/nexus-data
-        tty: true
-        stdin_open: true
-        restart: always
-    ebooks:
-        image: tomcat:7-jre8
-        container_name: ebooks
-        ports:
-            - "10001:8080"
-        volumes:
-            - /opt/cicd/ebooks/ebooks:/usr/local/tomcat/webapps/ebooks
-            - /opt/cicd/vbox/virtualbox:/usr/local/tomcat/webapps/virtualbox
         tty: true
         stdin_open: true
         restart: always
