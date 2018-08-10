@@ -1,0 +1,55 @@
+#!/bin/bash
+
+CICD_HOME=/opt/cicd
+
+while getopts d:h option
+do
+case "${option}"
+in
+d) CICD_HOME=$OPTARG;;
+h )
+      echo "Usage:"
+      echo "    configure -h           Display this help message"
+      echo "    configure -d [dir]     CICD home (root) directory"
+      exit 0
+      ;;
+
+esac
+done
+
+
+read -r -p "Configure CICD home direstory as $CICD_HOME? [y/N]: " response
+ response=${response,,} # tolower
+ if [ "$response" != "y" ]; then
+    echo "Non-Error Exit (0) ..."
+    exit 0
+ fi
+    echo "MAKE IT RAIN"
+   echo "CICD_HOME=$CICD_HOME" > ".env"
+# if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+
+echo " ########## CREATING DIRECTORY STRUCTURE ########## "
+
+echo "creating [jenkins] [home] directory [$CICD_HOME/jenkins/home]"
+mkdir -p $CICD_HOME/jenkins/home
+
+echo "creating [jenkins] [repo] directory [$CICD_HOME/repo]"
+mkdir -p $CICD_HOME/repo
+
+echo "creating [sprintbucket] [data] directory [$CICD_HOME/gitbucket/data"
+mkdir -p $CICD_HOME/gitbucket/data
+
+echo "creating [nexus] [data] directory [$CICD_HOME/nexus/data]"
+mkdir -p $CICD_HOME/nexus/data
+
+echo "creating [registry] home directory [$CICD_HOME/registry]"
+mkdir -p $CICD_HOME/registry
+
+echo "creating [sprintqube] [extensions] directory [$CICD_HOME/sonarqube/data]"
+mkdir -p $CICD_HOME/sonarqube/extensions
+
+echo "creating [sprintqube] [data] directory [$CICD_HOME/sonarqube/data]"
+mkdir -p $CICD_HOME/sonarqube/data
+
+echo " ########## BUILDING DOCKER IMAGES ########## "
+
