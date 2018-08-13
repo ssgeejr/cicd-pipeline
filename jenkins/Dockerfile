@@ -20,8 +20,8 @@ RUN apt-get update && \
 
 
 # ### Install Maven ###
-COPY apache-maven-3.5.4-bin.tar.gz /opt
 WORKDIR /opt
+ADD http://mirrors.ibiblio.org/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz /opt
 RUN tar -zxf apache-maven-3.5.4-bin.tar.gz && \
    echo "M2_HOME=/opt/apache-maven-3.5.4" >> /etc/profile && \
    echo "PATH=$PATH:$M2_HOME/bin" >> /etc/profile && \
@@ -40,7 +40,5 @@ RUN mkdir /repo && chown -R jenkins:jenkins /repo
 
 VOLUME /repo
 USER jenkins
-
-
 
 

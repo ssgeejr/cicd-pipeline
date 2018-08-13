@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CICD_HOME=/opt/cicd
+WORKING_DIR=`pwd`
 
 while getopts d:h option
 do
@@ -53,3 +54,54 @@ mkdir -p $CICD_HOME/sonarqube/data
 
 echo " ########## BUILDING DOCKER IMAGES ########## "
 
+if [[ -z $(docker images -q sprintkins:latest) ]]; then
+	echo "does not exist, creating sprintkins"
+	cd $WORKING_DIR/jenkins
+	docker build -t sprintkins .
+else
+	echo "Image sprintkins exist, skipping build
+	remove image sprintkins:latest to rebuild"
+fi
+
+
+
+if [[ -z $(docker images -q sprintgit:latest) ]]; then
+	echo "does not exist, creating sprintgit"
+	cd $WORKING_DIR/gitbucket
+	docker build -t sprintgit .
+else
+	echo "Image sprintgit exist, skipping build
+	remove image sprintgit:latest to rebuild"
+fi
+
+
+
+if [[ -z $(docker images -q google/cadvisor:latest) ]]; then
+	echo "does not exist, pulling cAdvisor"
+	docker pull google/cadvisor:latest
+else 
+	echo "Image cAdvisor  exist, skipping pull
+	remove image google/cadvisor:latest pull again"
+fi
+
+if [[ -z $(docker images -q nginx:1.15.2) ]]; then
+	echo "does not exist, pulling nginx:1.15.2"
+	cd $WORKING_DIR/nginx
+	docker build -t sprintngxn:latest .
+else 
+	echo "Image nginx:1.15.2  exist, skipping pull
+	remove image nginx:1.15.2 pull again"
+fi
+
+
+if [[ -z $(docker images -q sprintqube:latest) ]]; then
+	echo "does not exist, creating sonarqube:latest"
+	cd $WORKING_DIR/sonarqube
+	docker build -t sprintcube:latest .
+else 
+	echo "Image sonarqube:latest  exist, skipping pull
+	remove image sonarqube:latest run configure again"
+fi
+
+echo " ########## RETURNING TO INSTALL DIRECTORY ########## "
+cd $WORKING_DIR
