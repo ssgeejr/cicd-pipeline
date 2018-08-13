@@ -20,14 +20,40 @@ done
 
 
 read -r -p "Configure CICD home direstory as $CICD_HOME? [y/N]: " response
- response=${response,,} # tolower
- if [ "$response" != "y" ]; then
-    echo "Non-Error Exit (0) ..."
-    exit 0
- fi
+response=${response,,} # tolower
+if [ "$response" != "y" ]; then
+	echo "Non-Error Exit (0) ..."
+	exit 0
+fi
+
+echo " ########## [WARNING, PAY ATTENTION THE NEXT QUESTION ########## "
+read -r -p "**WARNING**
+Stop and Remove all containers [this is irreversible!!!] [y/N]: " response
+response=${response,,} # tolower
+if [ "$response" == "y" ]; then
+	echo " ########## Stopping all containers ########## "
+	docker stop $(docker ps -aq)
+else
+	echo " ########## Skipping container stop ########## "
+fi
+
+
+
+echo " ########## [WARNING, PAY ATTENTION THE NEXT QUESTION ########## "
+read -r -p "**WARNING**
+**WARNING**
+**WARNING**
+Stop and Remove all containers [this is IRREVERSIBLE!!!] [yes/N]: " response
+response=${response,,} # tolower
+if [ "$response" == "yes" ]; then
+	echo " ########## Removing all containers ########## "
+	docker rm $(docker ps -aq)
+else
+	echo " ########## Skipping container removal ########## "
+fi
+
 
 echo " ########## WRITING ENV FILE [$WORKING_DIR/docker-compose/.env" ########## "
-echo "MAKE IT RAIN"
 echo "CICD_HOME=$CICD_HOME" > "$WORKING_DIR/docker-compose/.env"
 # if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
 
