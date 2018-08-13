@@ -16,6 +16,11 @@ sprintqube	/opt/cicd/sonarqube/extensions
 kibana	
 cadvisor	
 
+to Stop all conainers run: sh stop.all.containers  
+
+
+### WARNING!!! 
+to remove all containers run: sh remove.all.containers  
 
 ## Docker commands you will want to know
 
