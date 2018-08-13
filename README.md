@@ -26,7 +26,7 @@ Container	Mount
 to Stop all conainers run: sh stop.all.containers  
 
 ### WARNING!!! 
-to remove all containers run: sh remove.all.containers  
+&#x1F53B; to remove all containers run: sh remove.all.containers  
 
 ## Docker commands you will want to know
 
@@ -36,25 +36,25 @@ docker ps -aq
 ### List all containers
 docker ps -a
 
-###Stop all containers
+### Stop all containers
 docker stop $(docker ps -aq)  
 
 ### Remove all docker containers
-docker rm $(docker ps -aq)  
+&#x1F53B; docker rm $(docker ps -aq)  
 
-###List all images
+### List all images
 docker images
 
-###Remove all images
-docker rmi $(docker images -q)  
+### Remove all images
+&#x1F53B; docker rmi $(docker images -q)  
 
-###List all containers that are running
+### List all containers that are running
 docker ps -aq -f status=running  
 
-###List all containers that have exited" 
+### List all containers that have exited" 
 docker ps -aq -f status=exited  
 
-###Remove all containers that are NOT running
-docker rm `docker ps -aq -f status=exited`  
+### Remove all containers that are NOT running
+&#x1F53B; docker rm `docker ps -aq -f status=exited`  
 
 
