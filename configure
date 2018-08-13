@@ -25,14 +25,18 @@ read -r -p "Configure CICD home direstory as $CICD_HOME? [y/N]: " response
     echo "Non-Error Exit (0) ..."
     exit 0
  fi
-    echo "MAKE IT RAIN"
-   echo "CICD_HOME=$CICD_HOME" > ".env"
+
+echo " ########## WRITING ENV FILE [$WORKING_DIR/docker-compose/.env" ########## "
+echo "MAKE IT RAIN"
+echo "CICD_HOME=$CICD_HOME" > "$WORKING_DIR/docker-compose/.env"
 # if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
 
 echo " ########## CREATING DIRECTORY STRUCTURE ########## "
 
 echo "creating [jenkins] [home] directory [$CICD_HOME/jenkins/home]"
 mkdir -p $CICD_HOME/jenkins/home
+echo "correcting $CICD_HOME/jenkins/home owner.  Setting to 1000"
+chown -R 1000 $CICD_HOME/jenkins/home
 
 echo "creating [jenkins] [repo] directory [$CICD_HOME/repo]"
 mkdir -p $CICD_HOME/repo
@@ -52,56 +56,91 @@ mkdir -p $CICD_HOME/sonarqube/extensions
 echo "creating [sprintqube] [data] directory [$CICD_HOME/sonarqube/data]"
 mkdir -p $CICD_HOME/sonarqube/data
 
+echo "creating [prometheus] directory [$CICD_HOME/prometheus]"
+mkdir -p $CICD_HOME/prometheus
+echo "copying prometheus.yml to $CICD_HOME/prometheus"
+cp $WORKING_DIR/prometheus/prometheus.yml $CICD_HOME/prometheus/
+
 echo " ########## BUILDING DOCKER IMAGES ########## "
 
 if [[ -z $(docker images -q sprintkins:latest) ]]; then
-	echo "does not exist, creating sprintkins"
+	echo "does not exist, creating sprintkins:latest"
 	cd $WORKING_DIR/jenkins
-	docker build -t sprintkins .
+	docker build -t sprintkins:latest .
 else
-	echo "Image sprintkins exist, skipping build
+	echo "Image sprintkins:latest exist, skipping build
 	remove image sprintkins:latest to rebuild"
 fi
 
 
-
 if [[ -z $(docker images -q sprintgit:latest) ]]; then
-	echo "does not exist, creating sprintgit"
+	echo "does not exist, creating sprintgit:latest"
 	cd $WORKING_DIR/gitbucket
-	docker build -t sprintgit .
+	docker build -t sprintgit:latest .
 else
-	echo "Image sprintgit exist, skipping build
+	echo "Image sprintgit:latest exist, skipping build
 	remove image sprintgit:latest to rebuild"
-fi
-
-
-
-if [[ -z $(docker images -q google/cadvisor:latest) ]]; then
-	echo "does not exist, pulling cAdvisor"
-	docker pull google/cadvisor:latest
-else 
-	echo "Image cAdvisor  exist, skipping pull
-	remove image google/cadvisor:latest pull again"
-fi
-
-if [[ -z $(docker images -q nginx:1.15.2) ]]; then
-	echo "does not exist, pulling nginx:1.15.2"
-	cd $WORKING_DIR/nginx
-	docker build -t sprintngxn:latest .
-else 
-	echo "Image nginx:1.15.2  exist, skipping pull
-	remove image nginx:1.15.2 pull again"
 fi
 
 
 if [[ -z $(docker images -q sprintqube:latest) ]]; then
 	echo "does not exist, creating sonarqube:latest"
 	cd $WORKING_DIR/sonarqube
-	docker build -t sprintcube:latest .
+	docker build -t sprintqube:latest .
 else 
-	echo "Image sonarqube:latest  exist, skipping pull
-	remove image sonarqube:latest run configure again"
+	echo "Image sprintqube:latest exist, skipping build
+	remove image sprintqube:latest run configure again"
 fi
+
+if [[ -z $(docker images -q sprintngnx:latest) ]]; then
+	echo "does not exist, creating spintngnx:latest"
+	cd $WORKING_DIR/nginx
+	docker build -t sprintngnx:latest .
+else 
+	echo "Image sprintngnx:latest exist, skipping build
+	remove image sprintngnx:latest run configure again"
+fi
+
+if [[ -z $(docker images -q sonatype/nexus:oss) ]]; then
+	echo "does not exist, pulling sonatype/nexus:oss"
+	docker pull sonatype/nexus:oss
+else 
+	echo "Image sonatype/nexus:oss exist, skipping pull
+	remove image sonatype/nexus:oss pull again"
+fi
+
+if [[ -z $(docker images -q registry:2) ]]; then 
+	echo "does not exist, pulling registry:2"
+	docker pull registry:2
+else 
+	echo "Image registry:2 exist, skipping pull
+	remove image registry:2 pull again"
+fi
+
+
+if [[ -z $(docker images -q prom/prometheus:latest) ]]; then 
+	echo "does not exist, pulling prom/prometheus:latest
+	docker pull prom/prometheus:latest"
+else 
+	echo "Image prom/prometheus:latest exist, skipping pull
+	remove image prom/prometheus:latest pull again"
+fi
+
+if [[ -z $(docker images -q google/cadvisor:latest) ]]; then
+	echo "does not exist, pulling cAdvisor:latest"
+	docker pull google/cadvisor:latest
+else 
+	echo "Image cAdvisor:latest exist, skipping pull
+	remove image google/cadvisor:latest pull again"
+fi
+
+
+
+echo " ########## STARTING CICD INSTANCE ########## "
+cd $WORKING_DIR/docker-compose
+docker-compose up -d
+
 
 echo " ########## RETURNING TO INSTALL DIRECTORY ########## "
 cd $WORKING_DIR
+
