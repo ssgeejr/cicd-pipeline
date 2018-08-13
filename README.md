@@ -3,21 +3,27 @@ nginx reverse-proxy for Docker containers.  Jenkins, Gitbucket, Artifactory, Doc
 
 # SEE DEVELOP BRANCH
 
-Containers:
+### For VirtualBox
+If you are running VirtualBox, you will need to open ports 90 (nginx) and 9100 (cAdvisor)  
+This can be done under 'Settings' / 'Network' / Advanced (down arror) / Port Forwarding (button)  
+add the following two entries
+* HTTP     	127.0.0.1	  80	192.168.122.1	  80
+* cAdvisor	127.0.0.1	9100	192.168.122.1	9100
+
+
+## Containers:
 
 Container	Mount
-ngnx	
-jenkins		/opt/cicd/jenkins/home
-sprintbucket	/opt/cicd/gitbucket/data
-nexus		/opt/cicd/nexus/data
-registry	/opt/cicd/registry
-sprintqube	/opt/cicd/sonarqube/extensions
-		/opt/cicd/sonarqube/data
-kibana	
-cadvisor	
+* sprintngnx	n/a
+* sprintkins	/opt/cicd/jenkins/home
+* sprintgit	/opt/cicd/gitbucket/data
+* registry	/opt/cicd/registry
+* sprintqube 	/opt/cicd/sonarqube/data
+* cAdvisor	n/a	
+* nexus		/opt/cicd/nexus/data
+* sprintqube	/opt/cicd/sonarqube/extensions
 
 to Stop all conainers run: sh stop.all.containers  
-
 
 ### WARNING!!! 
 to remove all containers run: sh remove.all.containers  
