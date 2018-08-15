@@ -85,7 +85,7 @@ mkdir -p $CICD_HOME/sonarqube/data
 echo "creating [prometheus] directory [$CICD_HOME/prometheus]"
 mkdir -p $CICD_HOME/prometheus
 echo "copying prometheus.yml to $CICD_HOME/prometheus"
-cp $WORKING_DIR/prometheus/prometheus.yml $CICD_HOME/prometheus/
+cp $WORKING_DIR/prometheus/prometheus.yml $CICD_HOME/prometheus/prometheus.yml
 
 echo " ########## BUILDING DOCKER IMAGES ########## "
 
