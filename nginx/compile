@@ -1,11 +1,16 @@
 #!/bin/bash
 
+echo "stopping ngnxreg"
+docker stop ngnxreg
+echo "removing ngnxreg"
+docker rm ngnxreg
+echo "removing image nginxsku"
 docker rmi -f nginxsku
-docker stop ngnx
-docker rm ngn
 echo "docker build -t nginxsku ."
 docker build -t nginxsku .
 
-echo "docker run --name ngnx --rm -p 80:80 -ti nginxsku"
+echo "docker run --name ngnxreg --rm -p 80:80 -ti nginxsku"
+#echo "docker run --name ngnxreg --rm -p 80:80 --link registry:sprint -ti nginxsku"
+docker run --name ngnxreg --rm -p 80:80 -ti nginxsku
 #docker run --name ngnx --rm -p 80:80 -ti nginxsku
 

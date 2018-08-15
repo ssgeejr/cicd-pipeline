@@ -18,44 +18,33 @@ http {
    		location /jenkins {
       			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       			proxy_set_header Host $http_host;
-      			proxy_pass http://144.229.218.198:8080;
+      			proxy_pass http://skupoc.dev.sprint.com:8080;
    		}
    		location /git {
       			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       			proxy_set_header Host $http_host;
-      			proxy_pass http://144.229.218.198:8880;
+      			proxy_pass http://skupoc.dev.sprint.com:8880;
    		}
    		location /kibana {
       			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       			proxy_set_header Host $http_host;
-      			proxy_pass http://144.229.218.198:5601;
+      			proxy_pass http://skupoc.dev.sprint.com:5601;
    		}
    		location /es {
       			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       			proxy_set_header Host $http_host;
-      			proxy_pass http://144.229.218.198:9200;
+      			proxy_pass http://skupoc.dev.sprint.com:9200;
    		}
    		location /sonar {
       			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       			proxy_set_header Host $http_host;
-      			proxy_pass http://144.229.218.198:9000;
+      			proxy_pass http://skupoc.dev.sprint.com:9000;
    		}
    		location /nexus {
       			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       			proxy_set_header Host $http_host;
-      			proxy_pass http://144.229.218.198:8081;
+      			proxy_pass http://skupoc.dev.sprint.com:8081;
    		}
-   		#location /v2 {
-      		#	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      		#	proxy_set_header Host $http_host;
-      		#	proxy_pass http://144.229.218.198:9000;
-   		#}
-		location ~ ^/sprint(/?)(.*)$ {  # OOPS!
-      			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      			proxy_set_header Host $http_host;
-  			#proxy_pass localhost:5000/$2$is_args$args;  # OOPS!
-  			proxy_pass http://144.229.218.198:5000/$2$is_args$args;  # OOPS!
-		}
 	}
 }
 
