@@ -26,7 +26,8 @@ RUN tar -zxf apache-maven-3.5.4-bin.tar.gz && \
    echo "M2_HOME=/opt/apache-maven-3.5.4" >> /etc/profile && \
    echo "PATH=$PATH:$M2_HOME/bin" >> /etc/profile && \
    echo "export M2_HOME PATH" >> /etc/profile && \
-   rm -f /opt/apache-maven-3.5.4-bin.tar.gz
+   rm -f /opt/apache-maven-3.5.4-bin.tar.gz && \
+   update-alternatives --install /usr/bin/mvn maven /opt/apache-maven-3.5.4/bin/mvn 1
 
 # ### Add the new settings.xml file ###
 COPY settings.xml /opt/apache-maven-3.5.4/conf/settings.xml
