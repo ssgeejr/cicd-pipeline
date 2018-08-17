@@ -1,11 +1,13 @@
 #!/bin/bash
 
-docker rmi -f nginxsku
-docker stop ngnx
-docker rm ngn
-echo "docker build -t nginxsku ."
-docker build -t nginxsku .
+docker rmi -f sprintngnx
+docker stop sprintngnx
+docker rm sprintngnx
+echo "docker build -t sprintngnx ."
+docker build -t sprintngnx .
 
-echo "docker run --name ngnx --rm -p 80:80 -ti nginxsku"
-#docker run --name ngnx --rm -p 80:80 -ti nginxsku
+echo "docker run --name sprintngnx --rm -p 80:80 -ti sprintngnx"
+echo "docker run --name sprintngnx --rm -p 80:80 -d sprintngnx"
+#docker run --name sprintngnx --rm -p 80:80 -ti sprintngnx
+#docker run --name sprintngnx --rm -p 80:80 -ti sprintngnx
 
