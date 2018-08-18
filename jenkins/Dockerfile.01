@@ -5,15 +5,13 @@ MAINTAINER Steve S Gee Jr <ioexcept@gmail.com>
 USER root
 RUN apt-get update && \
     apt-get -y install apt-transport-https \
-      python-pip \
       ca-certificates \
-      git \
+	  git \
       curl \
       gnupg2 \
       software-properties-common && \
-      pip install docker-compose && \
-      curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
-      add-apt-repository \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+    add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
       $(lsb_release -cs) \
       stable" && \
@@ -37,8 +35,12 @@ COPY settings.xml /opt/apache-maven-3.5.4/conf/settings.xml
 # ### Update the docker group and jenkins user ###
 RUN groupmod -g 993 docker && usermod -aG docker jenkins
 
+
 # ### Create the Maven Repo ###
 RUN mkdir /repo && chown -R jenkins:jenkins /repo
+
+RUN systemctl enable docker
+RUN usermod -aG docker jenkins
 
 VOLUME /repo
 USER jenkins

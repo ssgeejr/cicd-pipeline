@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker stop sprintkins
+docker rm sprintkins
+docker rmi sprintkins
+docker build -t sprintkins .
+
