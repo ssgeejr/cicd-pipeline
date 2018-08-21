@@ -21,12 +21,32 @@ services:
         stdin_open: true
         restart: always
 
+    sprintbucket:
+        image: sprintgit
+        container_name: sprintgit
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.50
+                        aliases:
+                                - gitbucket
+
+        ports:
+            - "8880:8080"
+        volumes:
+            - $CICD_HOME/gitbucket/data:/gitbucket
+        tty: true
+        stdin_open: true
+        restart: always
+
     jenkins:
         image: sprintkins
         container_name: sprintkins
         networks:
                 cicd_net:
                         ipv4_address: 10.10.10.20
+                        aliases:
+                                - jenkins
+
         ports:
             - "8080:8080"
             - "50000:50000"
@@ -56,19 +76,6 @@ services:
         stdin_open: true
         restart: always
 
-    sprintbucket:
-        image: sprintgit
-        container_name: sprintgit
-        networks:
-                cicd_net:
-                        ipv4_address: 10.10.10.50
-        ports:
-            - "8880:8080"
-        volumes:
-            - $CICD_HOME/gitbucket/data:/gitbucket
-        tty: true
-        stdin_open: true
-        restart: always
 
     nexus:
         image: sonatype/nexus:oss
