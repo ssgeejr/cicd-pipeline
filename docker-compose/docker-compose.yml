@@ -12,6 +12,9 @@ services:
     nginx:
         image: sprintngnx
         container_name: sprintngnx
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.10
         ports:
             - "80:80"
         tty: true
@@ -21,6 +24,9 @@ services:
     jenkins:
         image: sprintkins
         container_name: sprintkins
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.20
         ports:
             - "8080:8080"
             - "50000:50000"
@@ -37,6 +43,9 @@ services:
     sonarqube:
         image: sprintqube
         container_name: sprintqube
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.40
         ports:
             - "9000:9000"
             - "9092:9092"
@@ -50,6 +59,9 @@ services:
     sprintbucket:
         image: sprintgit
         container_name: sprintgit
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.50
         ports:
             - "8880:8080"
         volumes:
@@ -61,6 +73,9 @@ services:
     nexus:
         image: sonatype/nexus:oss
         container_name: nexus
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.60
         ports:
             - "8081:8081"
         volumes:
@@ -72,6 +87,9 @@ services:
     registry:
         image: registry:2
         container_name: registry
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.70
         ports:
             - "5000:5000"
         volumes:
@@ -83,6 +101,9 @@ services:
     prometheus:
         image: prom/prometheus:latest
         container_name: prometheus
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.80
         ports:
             - "9090:9090"
         volumes:
@@ -96,6 +117,9 @@ services:
     cadvisor:
         image: google/cadvisor:latest
         container_name: cadvisor
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.90
         ports:
             - "9100:8080"
         volumes:
@@ -107,3 +131,11 @@ services:
         tty: true
         stdin_open: true
         restart: always
+
+networks:
+    cicd_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config: [{subnet: 10.10.10.0/24}]
+
