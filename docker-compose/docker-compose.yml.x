@@ -79,41 +79,25 @@ services:
         restart: always
 
 
-    nexus:
-        image: sonatype/nexus:oss
-        container_name: nexus
-        networks:
-                cicd_net:
-                        ipv4_address: 10.10.10.60
-                        aliases:
-                                - nexus
-        ports:
-            - "8081:8081"
-        volumes:
-            - $CICD_HOME/nexus/data:/nexus-data
-        tty: true
-        stdin_open: true
-        restart: always
-
     nexusint:
         image: sonatype/nexus:oss
         container_name: nexusint
         networks:
                 cicd_net:
-                        ipv4_address: 10.10.10.62
+                        ipv4_address: 10.10.10.60
                         aliases:
                                 - nexusint
         ports:
-            - 8882:8081
+            - 8081:8081
         volumes:
-            - $CICD_HOME/nexusmst/data:/nexus-data
+            - $CICD_HOME/nexusint/data:/nexus-data
         #environment:
-        # passed as -Dnexus-webapp-context-path. This is used
-        # to define the URL which Nexus is accessed.
-        #    CONTEXT_PATH: nexusmst
+        # passed as -Dnexus-webapp-context-path. This is used 
+        # to define the URL which Nexus is accessed.    
+        #    CONTEXT_PATH: nexusint
         # passed as -Xmx. Defaults to 768m.
         # MAX_HEAP:
-        # passed as -Xms. Defaults to 256m.
+        # passed as -Xms. Defaults to 256m. 
         # MIN_HEAP:
         # Additional options can be passed to the JVM via this variable.
         # Default: -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true.
@@ -121,6 +105,7 @@ services:
         # A list of configuration files supplied to the
         # Nexus bootstrap launcher. Default: ./conf/jetty.xml ./conf/jetty-requestlog.xml
         # LAUNCHER_CONF:
+
         tty: true
         stdin_open: true
         restart: always
@@ -130,11 +115,11 @@ services:
         container_name: nexusmst
         networks:
                 cicd_net:
-                        ipv4_address: 10.10.10.63
+                        ipv4_address: 10.10.10.65
                         aliases:
                                 - nexusmst
-        ports:
-            - 8883:8081
+#        ports:
+#            - 8081:8081
         volumes:
             - $CICD_HOME/nexusmst/data:/nexus-data
         #environment:
@@ -154,7 +139,6 @@ services:
         tty: true
         stdin_open: true
         restart: always
-
 
     registry:
         image: registry:2
@@ -165,7 +149,7 @@ services:
                         aliases:
                                 - registry
         ports:
-            - "5000:5000"
+            - 5000:5000
         volumes:
             - $CICD_HOME/registry:/var/lib/registry
         tty: true

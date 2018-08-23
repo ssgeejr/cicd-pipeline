@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo 'dcoker copying nginx.conf ...'
+docker cp nginx.conf sprintngnx:/etc/nginx/nginx.conf
+echo 'dcoker copyng index.html ...'
+docker cp index.html sprintngnx:/usr/share/nginx/html/
+echo 'restarting sprintngnx  ...'
+docker restart sprintngnx
+

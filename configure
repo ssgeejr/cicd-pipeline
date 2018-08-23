@@ -70,8 +70,11 @@ mkdir -p $CICD_HOME/repo
 echo "creating [sprintbucket] [data] directory [$CICD_HOME/gitbucket/data"
 mkdir -p $CICD_HOME/gitbucket/data
 
-echo "creating [nexus] [data] directory [$CICD_HOME/nexus/data]"
-mkdir -p $CICD_HOME/nexus/data
+echo "creating [nexusint] [data] directory [$CICD_HOME/nexusint/data]"
+mkdir -p $CICD_HOME/nexusint/data
+
+echo "creating [nexusmst] [data] directory [$CICD_HOME/nexusmst/data]"
+mkdir -p $CICD_HOME/nexusmst/data
 
 echo "creating [registry] home directory [$CICD_HOME/registry]"
 mkdir -p $CICD_HOME/registry
