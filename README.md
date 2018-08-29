@@ -28,7 +28,7 @@ ie
 }
 '''
 
-then restart the daemon:  systemctl restart docker
+#then restart the daemon:  systemctl restart docker#
 
 
 
