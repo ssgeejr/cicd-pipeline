@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker cp nginx.conf sprintngnx:/etc/nginx/nginx.conf && docker restart sprintngnx

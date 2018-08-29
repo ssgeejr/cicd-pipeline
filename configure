@@ -130,12 +130,20 @@ else
 	remove image sprintngnx:latest run configure again"
 fi
 
-if [[ -z $(docker images -q sonatype/nexus:oss) ]]; then
-	echo "does not exist, pulling sonatype/nexus:oss"
-	docker pull sonatype/nexus:oss
+#if [[ -z $(docker images -q sonatype/nexus:oss) ]]; then
+#if [[ -z $(docker images -q cicdnexus) ]]; then
+if [[ -z $(docker images -q sprintnexus:oss) ]]; then
+	#echo "does not exist, pulling sonatype/nexus:oss"
+	echo "does not exist, building sprintnexus:oss"
+	#docker pull sonatype/nexus:oss
+	#docker tag sonatype/nexus:oss cicdnexus 
+	cd $WORKING_DIR/nexus
+	docker build -t sprintnexus:oss .
 else 
-	echo "Image sonatype/nexus:oss exist, skipping pull
-	remove image sonatype/nexus:oss pull again"
+#	echo "Image sonatype/nexus:oss exist, skipping pull
+#	echo "Image cicdnexus exists, skipping pull
+	echo "Image sprintnexus:oss  exists, skipping pull
+	remove image sprintnexus:oss build again"
 fi
 
 if [[ -z $(docker images -q registry:2) ]]; then 

@@ -80,7 +80,7 @@ services:
 
 
     nexus:
-        image: sonatype/nexus:oss
+        image: sprintnexus:oss
         container_name: nexus
         networks:
                 cicd_net:
@@ -96,7 +96,7 @@ services:
         restart: always
 
     nexusint:
-        image: sonatype/nexus:oss
+        image: sprintnexus:oss
         container_name: nexusint
         networks:
                 cicd_net:
@@ -107,10 +107,11 @@ services:
             - 8882:8081
         volumes:
             - $CICD_HOME/nexusmst/data:/nexus-data
-        #environment:
+        environment:
         # passed as -Dnexus-webapp-context-path. This is used
         # to define the URL which Nexus is accessed.
-        #    CONTEXT_PATH: nexusmst
+        #    CONTEXT_PATH: /nexusmst
+            NEXUS_PATH: /nexusint
         # passed as -Xmx. Defaults to 768m.
         # MAX_HEAP:
         # passed as -Xms. Defaults to 256m.
@@ -126,7 +127,7 @@ services:
         restart: always
 
     nexusmst:
-        image: sonatype/nexus:oss
+        image: sprintnexus:oss
         container_name: nexusmst
         networks:
                 cicd_net:
@@ -137,10 +138,11 @@ services:
             - 8883:8081
         volumes:
             - $CICD_HOME/nexusmst/data:/nexus-data
-        #environment:
+        environment:
         # passed as -Dnexus-webapp-context-path. This is used
         # to define the URL which Nexus is accessed.
-        #    CONTEXT_PATH: nexusmst
+        #    CONTEXT_PATH: /nexusmst
+            NEXUS_PATH: /nexusmst
         # passed as -Xmx. Defaults to 768m.
         # MAX_HEAP:
         # passed as -Xms. Defaults to 256m.

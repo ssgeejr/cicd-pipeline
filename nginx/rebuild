@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "removing sprintngnx image"
+docker rm sprintngnx
+echo "docker build -t sprintngnx ."
+docker build -t sprintngnx .
+

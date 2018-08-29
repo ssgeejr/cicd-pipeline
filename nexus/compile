@@ -1,0 +1,13 @@
+#/bin/bash
+
+docker rmi -f sprintnexus:oss
+docker stop sprintnexus:oss
+docker rm sprintnexus:oss
+echo "docker build -t sprintnexus:oss ."
+docker build -t sprintnexus:oss .
+
+echo "docker run --name sprintnexus:oss --rm -p 80:80 -ti sprintnexus:oss"
+echo "docker run --name sprintnexus:oss --rm -p 80:80 -d sprintnexus:oss"
+#docker run --name sprintnexus:oss --rm -p 80:80 -ti sprintnexus:oss
+#docker run --name sprintnexus:oss --rm -p 80:80 -ti sprintnexus:oss
+
