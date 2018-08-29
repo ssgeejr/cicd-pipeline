@@ -10,6 +10,27 @@ add the following two entries
 * HTTP     	127.0.0.1	  80	192.168.122.1	  80
 * cAdvisor	127.0.0.1	9100	192.168.122.1	9100
 
+### Adding insecure remote registry
+
+edit /etc/docker/daemon.json, it is not a default file therfore it may need to be created and add the following entry:
+
+'''json
+{
+"insecure-registries": ["myIP:myPORT"]
+}
+'''
+
+ie
+
+'''json
+{
+  "insecure-registries" : ["myregistrydomain.com:5000"]
+}
+'''
+
+then restart the daemon:  systemctl restart docker
+
+
 
 ## Containers:
 
