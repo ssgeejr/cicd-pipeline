@@ -14,19 +14,19 @@ add the following two entries
 
 edit /etc/docker/daemon.json, it is not a default file therfore it may need to be created and add the following entry:
 
-'''json
+```json
 {
 "insecure-registries": ["myIP:myPORT"]
 }
-'''
+```
 
 ie
 
-'''json
+```json
 {
   "insecure-registries" : ["myregistrydomain.com:5000"]
 }
-'''
+```
 
 #then restart the daemon:  systemctl restart docker#
 
