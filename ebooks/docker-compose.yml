@@ -1,0 +1,27 @@
+#version: '3'
+#version: '2'
+#
+#entrypoint:
+# - bash
+#labels:
+# - "HDInsight client VM"
+
+
+version: '3'
+services:
+    ebooks:
+        image: tomcat:7-jre8
+        container_name: ebooks
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.110
+        #ports:
+        #    - "10001:8080"
+        volumes:
+            - /opt/cicd/ebooks/ebooks:/usr/local/tomcat/webapps/ebooks
+            - /opt/cicd/vbox/virtualbox:/usr/local/tomcat/webapps/virtualbox
+        tty: true
+        stdin_open: true
+        restart: always
+
+

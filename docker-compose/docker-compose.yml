@@ -78,22 +78,21 @@ services:
         stdin_open: true
         restart: always
 
-
-    nexus:
-        image: sprintnexus:oss
-        container_name: nexus
-        networks:
-                cicd_net:
-                        ipv4_address: 10.10.10.60
-                        aliases:
-                                - nexus
-        ports:
-            - "8081:8081"
-        volumes:
-            - $CICD_HOME/nexus/data:/nexus-data
-        tty: true
-        stdin_open: true
-        restart: always
+#    nexus:
+#        image: sprintnexus:oss
+#        container_name: nexus
+#        networks:
+#                cicd_net:
+#                        ipv4_address: 10.10.10.60
+#                        aliases:
+#                                - nexus
+#        ports:
+#            - "8081:8081"
+#        volumes:
+#            - $CICD_HOME/nexus/data:/nexus-data
+#        tty: true
+#        stdin_open: true
+#        restart: always
 
     nexusint:
         image: sprintnexus:oss
@@ -185,12 +184,14 @@ services:
         ports:
             - "9090:9090"
         volumes:
-            - $CICD_HOME/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+            - $CICD_HOME/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
         command:
-            - '-config.file=/etc/prometheus/prometheus.yml'
+            - --config.file=/etc/prometheus/prometheus.yml
         tty: true
         stdin_open: true
         restart: always
+        depends_on:
+            - cadvisor
 
     cadvisor:
         image: google/cadvisor:latest
@@ -209,22 +210,20 @@ services:
         tty: true
         stdin_open: true
         restart: always
+        depends_on:
+            - redis
 
-    ebooks:
-        image: tomcat:7-jre8
-        container_name: ebooks
+    redis:
+        image: redis:latest
+        container_name: redis
         networks:
                 cicd_net:
                         ipv4_address: 10.10.10.100
-        #ports:
-        #    - "10001:8080"
-        volumes:
-            - /opt/cicd/ebooks/ebooks:/usr/local/tomcat/webapps/ebooks
-            - /opt/cicd/vbox/virtualbox:/usr/local/tomcat/webapps/virtualbox
+        ports:
+            - 6379:6379
         tty: true
         stdin_open: true
         restart: always
-
 
 networks:
     cicd_net:
