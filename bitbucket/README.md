@@ -54,3 +54,6 @@ services:
 
 
 
+## Bitbucket configurations (https://github.com/blacklabelops/bitbucket)
+
+``` -e "BITBUCKET_CONTEXT_PATH=/bitbucket" \ ```

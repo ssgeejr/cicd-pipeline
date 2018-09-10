@@ -193,6 +193,23 @@ services:
         depends_on:
             - cadvisor
 
+    bitbucket:
+        image: atlassian/bitbucket-server:5.13.0
+        container_name: bitbucket
+        networks:
+                cicd_net:
+                        ipv4_address: 10.10.10.110
+                        aliases:
+                                - bitbucket
+        ports:
+            - "7990:7990"
+            - "7999:7999"
+        volumes:
+            - $CICD_HOME/bitbucket:/var/atlassian/application-data/bitbucket
+        tty: true
+        stdin_open: true
+        restart: always
+
     cadvisor:
         image: google/cadvisor:latest
         container_name: cadvisor

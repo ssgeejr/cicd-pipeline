@@ -85,6 +85,9 @@ mkdir -p $CICD_HOME/sonarqube/extensions
 echo "creating [sprintqube] [data] directory [$CICD_HOME/sonarqube/data]"
 mkdir -p $CICD_HOME/sonarqube/data
 
+echo "creating [bitbucket] directory [$CICD_HOME/bitbucket]"
+mkdir -p $CICD_HOME/bitbucket
+
 echo "creating [prometheus] directory [$CICD_HOME/prometheus]"
 mkdir -p $CICD_HOME/prometheus
 echo "copying prometheus.yml to $CICD_HOME/prometheus"
@@ -169,6 +172,14 @@ if [[ -z $(docker images -q google/cadvisor:latest) ]]; then
 else 
 	echo "Image cAdvisor:latest exist, skipping pull
 	remove image google/cadvisor:latest pull again"
+fi
+
+if [[ -z $(docker images -q atlassian/bitbucket-server:5.13.0) ]]; then
+	echo "does not exist, pulling atlassian/bitbucket-server:5.13.0"
+	docker pull atlassian/bitbucket-server:5.13.0
+else 
+	echo "Image atlassian/bitbucket-server:5.13.0 exist, skipping pull
+	remove image atlassian/bitbucket-server:5.13.0 pull again"
 fi
 
 
