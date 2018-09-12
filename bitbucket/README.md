@@ -52,8 +52,27 @@ services:
 ```
 
 
-
-
 ## Bitbucket configurations (https://github.com/blacklabelops/bitbucket)
 
 ``` -e "BITBUCKET_CONTEXT_PATH=/bitbucket" \ ```
+
+The bitbucket.properties file is only created when needed by the application, for example, when migrating to an external database, the file will be created if it doesn't exist.
+
+If the file does not exist in $BITBUCKET_HOME/shared feel free to create it and include the SSL configuration that you need. Just make sure that the atlbitbucket user is the owner of the file.
+
+**** HOME DIRECTORY ****
+Successfully acquired lock on home directory /var/atlassian/application-data/bitbucket/shared
+
+
+#sample: bitbucket.properties
+server.context-path=/bitbucket
+server.port=7443                   # Jira is using 8443
+server.secure=true
+server.scheme=https
+server.ssl.enabled=true
+server.ssl.client-auth=want
+server.ssl.protocol=TLSv1.2
+server.ssl.key-store="path to my keystore"
+server.ssl.key-store-password="mypass"
+server.ssl.key-password="mypass"
+server.require-ssl=true

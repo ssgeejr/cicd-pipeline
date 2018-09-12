@@ -13,7 +13,7 @@ services:
             - "7990:7990"
             - "7999:7999"
         volumes:
-            - $CICD_HOME/bitbucket/data/var/atlassian/application-data/bitbucket
+            - $CICD_HOME/bitbucket:/var/atlassian/application-data/bitbucket
         tty: true
         stdin_open: true
         restart: always

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+clean=0
+start=0
+
+for arg in "$@"
+do
+    if [[ "x$arg" == "xstart" ]];
+    then
+        echo "...START..."
+	start=1
+    elif [[ "x$arg" == "xclean" ]];
+    then
+        echo "...CLEAN..."
+	clean=1
+    fi
+done
+
+
+if [[ $start == 1 ]]; then
+	echo "running with docker-compose up -d"
+fi
+if [[ $clean == 1 ]]; then
+	echo "rmi -f <images>"
+fi
